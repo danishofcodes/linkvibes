@@ -4,10 +4,11 @@ import Navbar from "./components/Navbar";
 import LinkCreationPage from "./components/LinkCreationPage";
 import ProfileDetails from "./components/ProfileDetails";
 import MiniPreview from "./components/MiniPreview";
+import Preview from "./components/Preview";
 
 function App() {
   const [menu, setMenu] = useState("links");
-
+  //  const [preview, setPreview] = useState(false)
   function menuSelector(selectedmenu) {
     setMenu(selectedmenu);
     console.log(selectedmenu);
@@ -15,23 +16,19 @@ function App() {
   // -------------------
 
   // -------USER DETAILS-----------
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [profileData, setProfileData] = useState({
-    firstName: "",
-    lastName: "",
+    fullname: "",
     email: "",
     profilePic: "",
   });
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
+  const handleNameChange = (e) => {
+    setFullname(e.target.value);
   };
 
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-  };
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -41,15 +38,21 @@ function App() {
     setProfilePic(e.target.value);
   };
 
-  console.log(firstName, lastName, email, profilePic);
+  console.log(fullname, email, profilePic);
 
-  function handleProfileSave() {
-    setProfileData({
-      firstName,
-      lastName,
-      email,
-      profilePic,
-    });
+  function handleProfileSave(val) {
+    console.log(val)
+    if( fullname && email){
+      setProfileData({
+        fullname,
+        email,
+        profilePic,
+      });
+    }else{
+      alert( "fullname, email fields empty, required fields should be filled")
+    }
+    
+   
   }
 
   console.log("Profile Data : ", profileData);
@@ -63,11 +66,14 @@ function App() {
   // add new link 
   function addLink() {
     setAddNewLink(true);
+    setLink('')
+    setSocial('')
   }
 
   // Hide the add new link 
   function handleLinkRemove() {
     setAddNewLink(false);
+
   }
 
   // Update social platform state
@@ -82,12 +88,14 @@ function App() {
   }
 
   // Save the link to the linkBucket object
-  function handleSaveLink() {
+  function handleSaveLink(val) {
+    console.log("incoming values : ", val)
     if (social) {
       setLinkBucket((prevBucket) => ({
         ...prevBucket,
         [social]: link,
       }));
+      setAddNewLink(false);
     }
   }
 
@@ -101,26 +109,42 @@ function App() {
     }));
 
   }
+// ------- Delete Saved Link --------
+const handleDeleteLink = (key) => {
+  setLinkBucket(prev => {
+      const updatedLinks = { ...prev };
+      delete updatedLinks[key];
+      return updatedLinks;
+  });
+};
 
+// ----------preview
+// function handlePreview(){
+//   setPreview(true)
+// }
+
+// function handleClosePreview(){
+//   setPreview(false)
+// }
   return (
     <>
       <Navbar menuSelector={menuSelector} menu={menu} />
       <main>
-        <div className="container-card">
-          <div className="borderDashed">
+      <div className="container">
+      <div className="preview container-card">
+      <div className="borderDashed">
           <MiniPreview
             linkBucket={linkBucket}
-            firstName={firstName}
-            lastName={lastName}
+            fullname={fullname}
             email={email}
             profilePic={profilePic}
             social={social}
           />
 
           </div>
-        </div>
-        <div className="container-card2">
-          {menu == "links" && (
+      </div>
+      <div className="settings container-card">
+      {menu == "links" && (
             <LinkCreationPage
               addLink={addLink}
               handleLinkRemove={handleLinkRemove}
@@ -130,23 +154,27 @@ function App() {
               addNewLink={addNewLink}
               linkBucket={linkBucket}
               handleUpdateLink={handleUpdateLink}
+              handleDeleteLink={handleDeleteLink}
             />
           )}
           {menu == "profiledetails" && (
             <ProfileDetails
-              handleFirstNameChange={handleFirstNameChange}
-              handleLastNameChange={handleLastNameChange}
+              handleNameChange={handleNameChange}
               handleEmailChange={handleEmailChange}
               handleProfilePicChange={handleProfilePicChange}
               handleProfileSave={handleProfileSave}
-              firstName={firstName}
-              lastName={lastName}
+              fullname={fullname}
               email={email}
               profilePic={profilePic}
             />
           )}
-        </div>
+      </div>
+      </div>
+       
       </main>
+
+     {/* {preview && <Preview handleClosePreview={handleClosePreview}/>}
+     */}
     </>
   );
 }
