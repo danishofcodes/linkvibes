@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
     margin: 20px;
     background-color: #ededed;
 
@@ -22,6 +25,8 @@ nav {
     margin: 0 5px;
     font-size: 11px;
     font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+
 }
 
 .btnsolid:hover {
@@ -87,7 +92,6 @@ nav {
     margin: 15px 5px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -154,7 +158,7 @@ input[type="text"] {
 
 
 }
-
+/* 
 .container-card {
     background-color: #f8f8f8;
     height: max-content;
@@ -162,20 +166,21 @@ input[type="text"] {
     padding: 12px;
     border-radius: 10px;
     width: 290px;
-    margin-right: 20px;
+    flex-grow: 1;
+    /* margin-right: 20px; 
 }
 
 
 .container-card2 {
     background-color: #f8f8f8;
-
+    flex-grow: 1;
     width: 40%;
     height: max-content;
-    margin-top: 19px;
+ 
     padding: 14px;
     border-radius: 10px;
 
-}
+} */
 
 .scroll-height {
     height: 188px;
@@ -189,7 +194,10 @@ input[type="text"] {
 
 main {
     display: flex;
+    flex-wrap: wrap-reverse;
     justify-content: center;
+    align-items: start;
+    padding-top: 3em;
 }
 .inpField{
     margin-bottom: 5px;
@@ -291,7 +299,12 @@ main {
 .text-bold {
     font-weight: 600;
 }
-
+.error{
+    color: tomato;
+    font-size: 10px;
+    margin-top: 5px;
+    margin-right: 0px;
+}
 .text-tiny {
     font-size: 10px;
 }
@@ -449,7 +462,9 @@ h5.texttheme {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
 }
-
+.savedlinkBlock:hover{
+  border:1px
+}
 .savedlinkBlock h3 {
     margin: 0;
     padding: 0;
@@ -458,7 +473,8 @@ h5.texttheme {
 .savedlinkBlock a {
     font-size: 12px;
     margin-top: 5px;
-    color: #1dafad;
+    color: #03A9F4;
+    font-weight: 500;
     text-decoration: none;
 }
 
@@ -468,22 +484,43 @@ h5.texttheme {
     align-items: center;
 }
 
-.edit {
+.xsmallbtn {
     background: #e5e5e5;
     border: 1px solid #ddd;
     border-radius: 3px;
     font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 500;
+}
+.xsmallbtn {
+    background: #e5e5e5;
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+    font-size: 11px;
+}
+.dangerbtn{
+    background: #ff5252;
+    border: 1px solid #ff3636;
+    color: #fff;
+    
 }
 
 .logo {
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     color: #1dafad;
 }
-
+.iconbox{
+    /* border: 1px solid #fff; */
+    height: 20px;
+    width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 .borderDashed{
     border: dashed 2px #1dafad;
     padding: 12px;
-    border-radius: 2px;
+    border-radius: 7px;
     height:-webkit-fill-available
 }
 
