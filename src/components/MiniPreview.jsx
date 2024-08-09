@@ -4,7 +4,7 @@ import { faGithub, faReddit, faInstagram, faFacebook, faSnapchat, faYoutube, faT
 
 import React, { useState } from 'react'
 
-export default function MiniPreview({ linkBucket, firstName, lastName, email, profilePic, }) {
+export default function MiniPreview({ linkBucket, fullname, email, profilePic, }) {
 
   const linkKeyVal = Object.entries(linkBucket);
 
@@ -44,7 +44,7 @@ export default function MiniPreview({ linkBucket, firstName, lastName, email, pr
           <div className="profilepicdiv">
             {profilePic && <img src={profilePic} alt="" />}
           </div>
-          <span className='text-bold theme-color'>{firstName ? firstName + " " + lastName : "your name"}</span>
+          <span className='text-bold theme-color'>{fullname ? fullname : "your name"}</span>
           <span className='text-tiny grey-light'>{email ? email : 'example@email.com'}</span>
         </div>
       </div>
@@ -53,8 +53,10 @@ export default function MiniPreview({ linkBucket, firstName, lastName, email, pr
         {linkKeyVal.slice(0, showMoreLinks ? linkKeyVal.length : 4).map(([key, value]) => (
           <a href={`https://${value}`} target="_blank" key={key}>
             <div className={`linkblock color`} style={{ background: colorMap[key] }}>
-              {console.log(iconMap[value])}
-              <h5><FontAwesomeIcon icon={iconMap[key] || faGlobe} /> {key}</h5>
+              <div className='iconbox'> 
+              <FontAwesomeIcon icon={iconMap[key] || faGlobe} /><span>{key}</span>
+              </div>
+              {/* <h5></h5> */}
             </div>
           </a>
         ))}
