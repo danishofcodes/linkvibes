@@ -2,7 +2,7 @@ import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 
-export default function SavedLinks({ linkBucket, handleUpdateLink }) {
+export default function SavedLinks({ linkBucket, handleUpdateLink, handleDeleteLink }) {
     const linkEntries = Object.entries(linkBucket);
 
     const [editing, setEditing] = useState(null);
@@ -21,6 +21,16 @@ export default function SavedLinks({ linkBucket, handleUpdateLink }) {
         setEditing(null);
     };
 
+    // -------
+    const deleteThisLink = (key) => {
+        handleDeleteLink(key);
+
+        setEditing(null);
+        setEditKey('');
+        setEditValue('');
+    };
+
+
     // ---- Save edits 
     const saveEdit = () => {
         handleUpdateLink(editKey, editValue);
@@ -33,6 +43,7 @@ export default function SavedLinks({ linkBucket, handleUpdateLink }) {
                 <div className='savedlinkBlock' key={key}>
                     {editing === key ? (
                         <div>
+                           <p>Editing <b>{key}</b> Link</p> 
                             <input
                                 type="text"
                                 value={editValue}
@@ -46,7 +57,10 @@ export default function SavedLinks({ linkBucket, handleUpdateLink }) {
                             <h3>{key}</h3>
                             <div className='alignbeside'>
                                 <a href={value} target='_blank' rel='noopener noreferrer'>{value}</a>
-                                <button onClick={() => startEditing(key, value)} className='edit'>Edit</button>
+                                <div>
+                                <button onClick={() => startEditing(key, value)} className='xsmallbtn mr-1'>Edit</button>
+                                <button onClick={() => deleteThisLink(key)} className='xsmallbtn dangerbtn'>delete</button>
+                                  </div>
                             </div>
 
                         </div>
