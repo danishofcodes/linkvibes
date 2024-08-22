@@ -1,9 +1,11 @@
-{
-  "name": "linktome",
+{ "homepage":"https://github.com/danishofcodes/linkvibes/",
+  "name": "linkvibes",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -24,6 +26,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "@eslint/config-array": "^0.17.1",
     "@eslint/object-schema": "^2.1.4",
     "@types/react": "^18.3.3",
