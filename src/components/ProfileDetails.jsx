@@ -36,6 +36,8 @@ const handleEmailFieldInput = (e) => {
   formik.handleChange(e);
   handleEmailChange(e); // Call the prop function
 };
+
+
   return (
     <form onSubmit={formik.handleSubmit}>
     <div>
@@ -45,12 +47,30 @@ const handleEmailFieldInput = (e) => {
         <label>
           Profile Picture URL
         </label>
-        <input
+        {/* <input
           type="text"
           value={profilePic}
           onChange={handleProfilePicChange}
           placeholder="Enter profile picture URL"
+        /> */}
+        {/* {profilePic && (
+        <div>
+          <img 
+            src={profilePic} 
+            alt="Profile Preview" 
+            style={{ width: '100px', height: '100px', objectFit: 'cover' }} // Adjust size and style as needed
+          />
+        </div>
+      )} */}
+          <input
+          type="file"
+          accept="image/*" 
+          // value={profilePic}
+          onChange={handleProfilePicChange}
+          placeholder="Enter profile picture URL"
         />
+
+
       </div>
 
       <div className='inpField'>
