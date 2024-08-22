@@ -7,38 +7,38 @@ import * as Yup from 'yup';
 
 export default function LinkAdd({ removeLink, saveLink, handleLink, handleSocial }) {
   // Validation schema for Formik
-const validationSchema = Yup.object({
-  socialMedia: Yup.string().required('Please select a social media platform'),
-  link: Yup.string().required('Link is required')
-});
-  
-// -----------
+  const validationSchema = Yup.object({
+    socialMedia: Yup.string().required('Please select a social media platform'),
+    link: Yup.string().required('Link is required')
+  });
 
-const formik = useFormik({
-  initialValues: {
-    socialMedia: '',
-    link: '',
-  },
-  validationSchema,
-  onSubmit: (values) => {
-    saveLink(values);
-  },
-});
+  // -----------
 
- // Handle select changes
- const handleSelectChange = (event) => {
-  formik.handleChange(event);
-  handleSocial(event); // Call the prop function
-};
+  const formik = useFormik({
+    initialValues: {
+      socialMedia: '',
+      link: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      saveLink(values);
+    },
+  });
 
-// Handle link input changes
-const handleInputChange = (event) => {
-  formik.handleChange(event);
-  handleLink(event); // Call the prop function
-};
-  
+  // Handle select changes
+  const handleSelectChange = (event) => {
+    formik.handleChange(event);
+    handleSocial(event); // Call the prop function
+  };
+
+  // Handle link input changes
+  const handleInputChange = (event) => {
+    formik.handleChange(event);
+    handleLink(event); // Call the prop function
+  };
+
   return (
-    <form  onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <div className='card'>
         <div className='linkcard-header'>
           <button className="delete" onClick={removeLink}>Close</button>
@@ -47,12 +47,12 @@ const handleInputChange = (event) => {
         <div className='link-inp-action'>
 
           <select
-           name="socialMedia"
-           value={formik.values.socialMedia}
-           onChange={handleSelectChange}
-           onBlur={formik.handleBlur}
+            name="socialMedia"
+            value={formik.values.socialMedia}
+            onChange={handleSelectChange}
+            onBlur={formik.handleBlur}
           >
-            <option value="">Select Your Social Media</option>
+            <option value="">Select your Media to Connect</option>
             <option value="Github">Github</option>
             <option value="Reddit">Reddit</option>
             <option value="Youtube">Youtube</option>
@@ -66,26 +66,33 @@ const handleInputChange = (event) => {
           ) : null}
 
 
-          <div className='linkbox'>
-            <div className='httpprepend'>
-              <span>https://</span>
+
+          {formik.values.socialMedia &&
+            <div>
+              <span>Now add your link!</span>
+              <div className='linkbox'>
+                <div className='httpprepend'>
+                  <span>https://</span>
+                </div>
+                <input
+                  type="text"
+                  className="linkinput"
+                  name="link"
+                  value={formik.values.link}
+                  onChange={handleInputChange}
+                  onBlur={formik.handleBlur} />
+
+
+              </div>
+              {formik.touched.link && formik.errors.link ? (
+                <div className="error">{formik.errors.link}</div>
+              ) : null}
             </div>
-            <input 
-            type="text" 
-            className="linkinput" 
-            name="link"
-            value={formik.values.link}
-            onChange={handleInputChange}
-            onBlur={formik.handleBlur} />
-          </div>
-          {formik.touched.link && formik.errors.link ? (
-              <div className="error">{formik.errors.link}</div>
-            ) : null}
-            
+          }
         </div>
 
         <div className="link-card-footer">
-          <button  className='btnbordered btngreen' type="submit" disabled={!formik.isValid}>
+          <button className='btnbordered btngreen' type="submit" disabled={!formik.isValid}>
             <FontAwesomeIcon icon={faCheckCircle} />&nbsp;Save
           </button>
         </div>
