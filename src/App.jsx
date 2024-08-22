@@ -35,7 +35,13 @@ function App() {
   };
 
   const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.value);
+    // setProfilePic(e.target.value);
+      const file = e.target.files[0]; 
+      if (file) {
+        const fileURL = URL.createObjectURL(file); 
+        setProfilePic(fileURL);
+      }
+
   };
 
   console.log(fullname, email, profilePic);
@@ -144,6 +150,22 @@ const handleDeleteLink = (key) => {
           </div>
       </div>
       <div className="settings container-card">
+
+      <div className="mb-3">
+        <button
+          className={`btnsolid ${menu === 'links' ? 'active' : ''}`}
+          onClick={() => menuSelector('links')}
+        >
+          Links
+        </button>
+        <button
+          className={`btnsolid ${menu === 'profiledetails' ? 'active' : ''}`}
+          onClick={() => menuSelector('profiledetails')}
+        >
+          Profile Details
+        </button>
+      </div>
+      
       {menu == "links" && (
             <LinkCreationPage
               addLink={addLink}
